@@ -23,10 +23,22 @@ class Functionality extends React.Component {
       this.setState({display:""})
   }
 
-  result = (event) =>{
+  result= (event) =>{
+    this.setState({display:this.calculation})
+  }
+
+  calculation = (event) =>{
       switch(event){
+        case '+':
+          return (a,b) => a+b;
+        case '-':
+          return (a,b) => a-b;
+        case '*':
+          return (a,b) => a*b;
         case '/':
-          return 
+          return (a,b) => a/b;
+        default:
+          throw new console.error('Wrong input');
       }
   }
 
