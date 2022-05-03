@@ -1,5 +1,5 @@
 //import math from "math";
-import math from "mathjs";
+import {evaluate} from "mathjs";
 import React from "react";
 import './Functionality.style.css'
 
@@ -51,11 +51,12 @@ class Functionality extends React.Component {
       }
   }
 
-  calculate= (event) =>{
-    this.setState(prevState => ({
-      display: `${prevState.value}${event.target.value}`.replace(/([\/+\-/*=])([\/+\-*=])/g, '$2')
-    }));
-    this.setState({diaplay: math.eval(this.state.display)})
+  calculate= () =>{
+    // this.setState(prevState => ({
+    //   display: `${prevState.value}${event.target.value}`.replace(/([\/+\-/*=])([\/+\-*=])/g, '$2')
+    // }));
+  
+      this.setState({display: evaluate(this.state.display).toString()}) 
   }
 
   render() {
