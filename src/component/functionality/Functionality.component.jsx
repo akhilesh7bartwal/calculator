@@ -8,7 +8,7 @@ class Functionality extends React.Component {
     super();
     this.state = {
       display: "",
-      inputRef:""
+      //inputRef:""
     };
   }
 // for updating input 
@@ -36,27 +36,29 @@ class Functionality extends React.Component {
   //   this.setState({display:this.calculation})
   // }
 
-  calculation = (event) =>{
-      switch(event){
-        case '+':
-          return (a,b) => a+b;
-        case '-':
-          return (a,b) => a-b;
-        case '*':
-          return (a,b) => a*b;
-        case '/':
-          return (a,b) => a/b;
-        default:
-          throw new console.error('Wrong input');
-      }
-  }
+  // calculation = (event) =>{
+  //     switch(event){
+  //       case '+':
+  //         return (a,b) => a+b;
+  //       case '-':
+  //         return (a,b) => a-b;
+  //       case '*':
+  //         return (a,b) => a*b;
+  //       case '/':
+  //         return (a,b) => a/b;
+  //       default:
+  //         throw new console.error('Wrong input');
+  //     }
+  // }
 
   calculate= () =>{
     // this.setState(prevState => ({
     //   display: `${prevState.value}${event.target.value}`.replace(/([\/+\-/*=])([\/+\-*=])/g, '$2')
     // }));
-  
+    try{
       this.setState({display: evaluate(this.state.display).toString()}) 
+    }
+    catch(error){this.setState({display: "Wrong input"})} 
   }
 
   render() {
