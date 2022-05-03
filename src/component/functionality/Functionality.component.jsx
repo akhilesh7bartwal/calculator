@@ -1,3 +1,5 @@
+//import math from "math";
+import math from "mathjs";
 import React from "react";
 import './Functionality.style.css'
 
@@ -6,26 +8,33 @@ class Functionality extends React.Component {
     super();
     this.state = {
       display: "",
+      inputRef:""
     };
   }
-
+// for updating input 
   updateInput= (event)=>{
     this.setState({display:event.target.value})
     console.log(this.state)
   }
 
+  //for displaying numbers
   displayAdd= (event) =>{
       this.setState({display:`${this.state.display}${event.target.value}`})
       console.log(event.target.value)
   }
 
-  clearFunction = (event) =>{
+  //for backspace
+  backspace = () => {
+      this.setState({display:this.state.display.slice(0,-1)});
+  }
+
+  clearFunction = () =>{
       this.setState({display:""})
   }
 
-  result= (event) =>{
-    this.setState({display:this.calculation})
-  }
+  // inputRef= (event) =>{
+  //   this.setState({display:this.calculation})
+  // }
 
   calculation = (event) =>{
       switch(event){
@@ -40,6 +49,13 @@ class Functionality extends React.Component {
         default:
           throw new console.error('Wrong input');
       }
+  }
+
+  calculate= (event) =>{
+    this.setState(prevState => ({
+      display: `${prevState.value}${event.target.value}`.replace(/([\/+\-/*=])([\/+\-*=])/g, '$2')
+    }));
+    this.setState({diaplay: math.eval(this.state.display)})
   }
 
   render() {
@@ -77,8 +93,8 @@ class Functionality extends React.Component {
 
               <tr>
                   <td><input className="button" type="button" value="." onClick={this.displayAdd} /></td>
-                  <td><input className="button" type="button" value="%" onClick={this.displayAdd} /></td>
-                  <td><input className="button" type="button" value="=" onClick={this.displayAdd} /></td>
+                  <td><input className="button" type="button" value="del" onClick={this.backspace} /></td>
+                  <td><input className="button" type="button" value="=" onClick={this.calculate} /></td>
                   <td><input className="button" type="button" value="*" onClick={this.displayAdd} /></td>
               </tr>
 
